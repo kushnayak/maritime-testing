@@ -1,0 +1,8 @@
+/.west
+/bootloader
+/modules
+/tools
+/zephyr
+/build
+/*.out
+/venv

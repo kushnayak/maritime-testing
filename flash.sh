@@ -1,0 +1,1 @@
+sudo st-flash --reset write build/zephyr/zephyr.bin 0x08000000

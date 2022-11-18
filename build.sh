@@ -1,0 +1,1 @@
+west build -c -p auto --board=nucleo_f767zi
