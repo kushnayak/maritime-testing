@@ -44,7 +44,7 @@ int ring_buf_get_byte(struct ring_buf *buf, uint8_t *byte) {
 void process_velocity() {
     char *token;
     
-    printk("received wrz packet: %s", buf);
+    // printk("received wrz packet: %s\r\n", buf);
 
     token = strtok(buf, ",");   // wrz
 
@@ -85,7 +85,7 @@ void process_velocity() {
     token = strtok(NULL, "\0"); // checksum
     uint16_t checksum = strtol(token, NULL, 16);
 
-    LOG_INF("velocity x: %f\n\ry:%f\n\rz:%f\n\rvalid: %d\n\raltitude: %f\n\rtime since last: %f\n\rstatus: %d\n\rchecksum: 0x%X\n\r",
+    LOG_INF("\n\rvelocity x: %f\n\ry:%f\n\rz:%f\n\rvalid: %d\n\raltitude: %f\n\rtime since last: %f\n\rstatus: %d\n\rchecksum: 0x%X\n\r",
             velocity_x, velocity_y, velocity_z, valid, altitude, time_ms, status, checksum);
 }
 
@@ -99,7 +99,8 @@ void process_frame() {
         ring_buf_peek(&ring_buf_rx, &rx_byte, 1);
         if (rx_byte != 'w') {
             ring_buf_get(&ring_buf_rx, &rx_byte, 1);
-            printk("misaligned frame, continuing to retrieve data");
+            // printk("misaligned frame, continuing to retrieve data %c\r\n", rx_byte);
+            // LOG_INF("Misaligned frame with char %c\r\n", rx_byte);
         } else {
             break;
         }
@@ -123,6 +124,7 @@ void process_frame() {
     
     buf[len] = 0; // for ending string, can remove
     
+    printk("received total frame: %s\r\n", buf);
     if (buf[1] == 'r') {
         if (buf[2] == 'z') {
             process_velocity();

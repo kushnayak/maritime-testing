@@ -8,7 +8,9 @@ project(maritime-testing)
 FILE(GLOB app_sources
      #src/main.c
      # src/uart_poll.c
-     src/uart_dvl.c
+     # `src/uart_dvl.c
+     # src/pressure.c
+     src/can_send.c
 )
 
 target_sources(app PRIVATE ${app_sources})
